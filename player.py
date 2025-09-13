@@ -1,23 +1,34 @@
 import pygame
 import math
 import time
+from pygame.math import Vector2
 
 SCREEN_RECT = pygame.Rect(0, 0, 800, 600)
 
 
 class Player(pygame.sprite.Sprite):
-    def __init__(self, x, y, character="Lau L"):
+    def __init__(self, x, y, imagen_path, character="Lau L"):
         super().__init__()
         self.character = character
-        self.image = pygame.Surface((40, 40))
-        self.image.fill((0, 200, 0))
-        self.rect = self.image.get_rect(center=(x, y))
-        self.speed = 5
+        self.original_image = pygame.image.load(imagen_path).convert_alpha()
+        self.original_image = pygame.transform.scale(self.original_image, (100, 100))
+        self.image = self.original_image.copy()
+        self.rect = self.image.get_rect(center= (x,y))
+        self.speed = 5 
         self.bullets = pygame.sprite.Group()
         self.explosives = pygame.sprite.Group()
         self.shots_fired = 0
+   
+        
 
     def update(self, keys):
+        
+        mx, my = pygame.mouse.get_pos()
+        dx, dy = mx - self.rect.centerx, my - self.rect.centery
+        angle = math.degrees(math.atan2(-dy, dx))
+        self.image = pygame.transform.rotate(self.original_image, angle)
+        self.rect = self.image.get_rect(center=self.rect.center)
+
         if keys[pygame.K_w]:
             self.rect.y -= self.speed
         if keys[pygame.K_s]:

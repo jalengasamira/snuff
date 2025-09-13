@@ -8,6 +8,7 @@ from user_system import login, save_score, generate_report, registrar_partida, r
 
 pygame.init()
 screen = pygame.display.set_mode((800, 600))
+
 pygame.display.set_caption("Snuff")
 clock = pygame.time.Clock()
 font = pygame.font.SysFont(None, 32)
@@ -33,10 +34,7 @@ def pantalla_ranking():
     running = True
     while running:
         screen.fill((20, 20, 20))
-        title = font.render("Ranking de Jugadores", True, WHITE)
-        screen.blit(title, (400 - title.get_width() // 2, 40))
-
-        y = 100
+        title = font.a
         for i, u in enumerate(ranking[:10], start=1):
             text = f"{i}. {u['usuario']} ({u['nombre']}) - {u['max_score']} pts"
             label = font.render(text, True, WHITE)
@@ -88,7 +86,7 @@ def jugar(usuario):
     personaje = elegir_personaje()
     all_sprites = pygame.sprite.Group()
     enemies = pygame.sprite.Group()
-    player = Player(400, 300, personaje)
+    player = Player(250,250,"boquita.png", personaje)
     all_sprites.add(player)
 
     score = 0
