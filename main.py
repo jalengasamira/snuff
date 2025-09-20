@@ -328,8 +328,3 @@ def menu_principal():
 
 if __name__ == "__main__":
     menu_principal()
-git init
-git remote add origin https://github.com/usuario/repositorio.git
-git add .
-git commit -m "Primer commit del proyecto"
-git push origin main
