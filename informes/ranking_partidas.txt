@@ -1,0 +1,8 @@
+=== Ranking por Usuario ===
+
+Usuario 1:
+ Partida 1758256072 - Puntaje 20 - Fecha 2025-09-19 01:27:58
+ Partida 1758256081 - Puntaje 10 - Fecha 2025-09-19 01:28:04
+ TOTAL General: 30
+ mejor Partida: 1758256072 con 20 puntos
+ peor Partida: 1758256081 con 10 puntos

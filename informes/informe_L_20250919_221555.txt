@@ -1,0 +1,10 @@
+=== Snuff - Informe de Partida ===
+Fecha/Hora: 2025-09-19 22:15:55
+Usuario: L (L)
+Personaje: Samira
+
+Puntaje: 60
+Kills: 6 (Jefes: 0)
+Disparos: 4
+Impactos: 6
+Duración: 9 s
