@@ -1,0 +1,7 @@
+=== Planilla Puntaje de Jugadores ===
+
+1	L	20	0	20
+
+TOTAL General: 20
+El Mejor Usuario es: L (L)
+Con el puntaje: 20
