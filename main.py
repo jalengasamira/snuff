@@ -7,7 +7,7 @@ from enemy import Zombie, Boss
 from user_system import login, save_score, generate_report, registrar_partida, registrar_colision, get_ranking, informe_padron, informe_puntajes, informe_ranking
 
 pygame.init()
-screen = pygame.display.set_mode((800, 600))
+screen = pygame.display.set_mode((1200, 720))
 
 pygame.display.set_caption("Snuff")
 clock = pygame.time.Clock()
@@ -19,6 +19,8 @@ GRAY = (100, 100, 100)
 BLUE = (50, 150, 255)
 DARK_BLUE = (30, 100, 200)
 
+fondo = pygame.image.load("assets/fondo.png").convert()
+fondo = pygame.transform.scale(fondo, (1200, 720))
 
 def draw_button(text, x, y, w, h, active):
     color = BLUE if active else DARK_BLUE
@@ -84,19 +86,42 @@ def elegir_personaje():
 
 def jugar(usuario):
     personajes = {
-        "Lau L": {"class": LauL, "skin": "assets/BOQUITA.png"},
-        "Facu": {"class": Facu, "skin": "assets/ROJO.png"},
-        "Lau S": {"class": LauS, "skin": "assets/VERDE.png"},
-        "Samira": {"class": Samira, "skin": "assets/AZUL.png"},
+        # El cuerpo ocupa 100x100, el lienzo permite armas largas
+        "Lau L": {
+            "class": LauL,
+            "skin": "assets/BOQUITA.png",
+            "size": (180, 120),         # ancho extra para el arma
+            "cuerpo_centro": (60, 60)   # centro del cuerpo (100x100) en el lienzo
+        },
+        "Facu": {
+            "class": Facu,
+            "skin": "assets/ROJO.png",
+            "size": (320, 120),         # arma muy larga
+            "cuerpo_centro": (60, 60)
+        },
+        "Lau S": {
+            "class": LauS,
+            "skin": "assets/VERDE.png",
+            "size": (180, 120),
+            "cuerpo_centro": (60, 60)
+        },
+        "Samira": {
+            "class": Samira,
+            "skin": "assets/AZUL.png",
+            "size": (240, 120),         # arma más larga que Lau L, menos que Facu
+            "cuerpo_centro": (60, 60)
+        },
     }
     personaje_nombre = elegir_personaje()
     personaje_info = personajes[personaje_nombre]
     personaje_clase = personaje_info["class"]
     personaje_skin = personaje_info["skin"]
+    size = personaje_info.get("size", (180, 120))
+    cuerpo_centro = personaje_info.get("cuerpo_centro", (60, 60))
 
     all_sprites = pygame.sprite.Group()
     enemies = pygame.sprite.Group()
-    player = personaje_clase(250, 250, personaje_skin)
+    player = personaje_clase(250, 250, personaje_skin, size=size, cuerpo_centro=cuerpo_centro)
     all_sprites.add(player)
 
     score = 0
@@ -210,7 +235,7 @@ def jugar(usuario):
             all_sprites.add(boss)
             boss_active = True
 
-        screen.fill((30, 30, 30))
+        screen.blit(fondo, (0, 0))
         all_sprites.draw(screen)
         hud = [
             f"Puntos: {score}",

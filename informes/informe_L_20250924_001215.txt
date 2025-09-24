@@ -1,0 +1,10 @@
+=== Snuff - Informe de Partida ===
+Fecha/Hora: 2025-09-24 00:12:15
+Usuario: L (L)
+Personaje: Facu
+
+Puntaje: 20
+Kills: 2 (Jefes: 0)
+Disparos: 8
+Impactos: 2
+Duración: 7 s

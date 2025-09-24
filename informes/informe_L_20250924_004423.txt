@@ -1,0 +1,10 @@
+=== Snuff - Informe de Partida ===
+Fecha/Hora: 2025-09-24 00:44:23
+Usuario: L (L)
+Personaje: Lau L
+
+Puntaje: 60
+Kills: 6 (Jefes: 0)
+Disparos: 22
+Impactos: 6
+Duración: 6 s

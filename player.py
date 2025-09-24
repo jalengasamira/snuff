@@ -6,15 +6,15 @@ SCREEN_RECT = pygame.Rect(0, 0, 800, 600)
 
 
 class Character(pygame.sprite.Sprite):
-    def __init__(self, x, y, image_path, speed=5, size=(100, 100)):
+    def __init__(self, x, y, image_path, size=(320, 320), cuerpo_centro=(160, 160), speed=5):
         super().__init__()
-        self.original_image = pygame.image.load(image_path).convert_alpha()
-        self.original_image = pygame.transform.scale(self.original_image, size)
+        self.original_image = cargar_sprite_centrado(image_path, size, cuerpo_centro)
         self.image = self.original_image.copy()
+        self.original_image = pygame.transform.scale(self.original_image, size)
         self.rect = self.image.get_rect(center=(x, y))
         self.speed = speed
-        self.bullets = pygame.sprite.Group()     # <--- Nuevo grupo para balas
-        self.explosives = pygame.sprite.Group()  # <--- Nuevo grupo para explosivos
+        self.bullets = pygame.sprite.Group()
+        self.explosives = pygame.sprite.Group()
         self.shots_fired = 0
 
     def update(self, keys):
@@ -40,8 +40,8 @@ class Character(pygame.sprite.Sprite):
 
 
 class LauL(Character):
-    def __init__(self, x, y, image_path, speed=5, size=(100, 100)):
-        super().__init__(x, y, image_path, speed, size)
+    def __init__(self, x, y, image_path, size=(320, 320), cuerpo_centro=(160, 160), speed=5):
+        super().__init__(x, y, image_path, size, cuerpo_centro, speed)
         self.revolver_side = True  # True = derecha, False = izquierda
 
     def shoot(self, target):
@@ -69,6 +69,9 @@ class LauL(Character):
 
 
 class Facu(Character):
+    def __init__(self, x, y, image_path, size=(320, 320), cuerpo_centro=(160, 160), speed=5):
+        super().__init__(x, y, image_path, size, cuerpo_centro, speed)
+
     def shoot(self, target):
         for spread in [-0.2, -0.1, 0, 0.1, 0.2]:
             bullet = Bullet(self.rect.centerx, self.rect.centery, target, spread=spread, speed=9, damage=1)
@@ -77,6 +80,9 @@ class Facu(Character):
 
 
 class LauS(Character):
+    def __init__(self, x, y, image_path, size=(320, 320), cuerpo_centro=(160, 160), speed=5):
+        super().__init__(x, y, image_path, size, cuerpo_centro, speed)
+
     def shoot(self, target):
         bullet = Bullet(self.rect.centerx, self.rect.centery, target, speed=8, size=12, damage=1)
         self.bullets.add(bullet)
@@ -84,6 +90,9 @@ class LauS(Character):
 
 
 class Samira(Character):
+    def __init__(self, x, y, image_path, size=(320, 320), cuerpo_centro=(160, 160), speed=5):
+        super().__init__(x, y, image_path, size, cuerpo_centro, speed)
+
     def shoot(self, target):
         explosive = Explosive(self.rect.centerx, self.rect.centery, target, damage=10, radius=200)
         self.explosives.add(explosive)
@@ -159,3 +168,11 @@ class Explosive(Shoot):
             if not self.exploded and (time.time() - self.land_time >= 1):
                 self.exploded_at = (self.rect.centerx, self.rect.centery)
                 self.exploded = True
+
+
+def cargar_sprite_centrado(ruta_imagen, size=(320, 320), cuerpo_centro=(160, 160)):
+    imagen = pygame.image.load(ruta_imagen).convert_alpha()
+    superficie = pygame.Surface(size, pygame.SRCALPHA)
+    rect = imagen.get_rect(center=cuerpo_centro)
+    superficie.blit(imagen, rect)
+    return superficie
